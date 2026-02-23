@@ -31,7 +31,7 @@ function postSettledTrade(args, cbk) {
         // Check arguments
         validate: cbk => {
           if (!args.api) {
-            return cbk([400, 'ExpectedTelegramApiObjectToPostSettledTrade']);
+            return cbk([400, 'ExpectedRocketChatApiObjectToPostSettledTrade']);
           }
 
           if (args.description === undefined) {

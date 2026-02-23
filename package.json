@@ -17,7 +17,7 @@
     "ln-sync": "workspace:*",
     "table": "6.9.0"
   },
-  "description": "Lightning Network Telegram bot commands",
+  "description": "Lightning Network RocketChat bot commands",
   "devDependencies": {
     "ln-docker-daemons": "workspace:*",
     "oxlint": "^1.50.0"
@@ -28,7 +28,7 @@
   "keywords": [
     "lightning",
     "lightning-network",
-    "telegram"
+    "rocketchat"
   ],
   "license": "MIT",
   "main": "index.js",

@@ -38,7 +38,7 @@ function postOpenMessage(args, cbk) {
           }
 
           if (!args.id) {
-            return cbk([400, 'ExpectedTelegramUserIdToPostChannelOpenMessage']);
+            return cbk([400, 'ExpectedRocketChatUserIdToPostChannelOpenMessage']);
           }
 
           if (args.is_private === undefined) {

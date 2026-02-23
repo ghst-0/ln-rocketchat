@@ -87,7 +87,7 @@ const tests = [
   },
   {
     args: makeArgs({}),
-    description: 'Post channel close message to Telegram',
+    description: 'Post channel close message to RocketChat',
     expected: {
       text: [
         `🥀 0\\.00000001 channel closed with alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,
@@ -97,7 +97,7 @@ const tests = [
   },
   {
     args: makeArgs({is_breach_close: true}),
-    description: 'Post breach channel close message to Telegram',
+    description: 'Post breach channel close message to RocketChat',
     expected: {
       text: [
         `🥀 Breach countered on 0\\.00000001 channel with alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,
@@ -107,7 +107,7 @@ const tests = [
   },
   {
     args: makeArgs({is_cooperative_close: true}),
-    description: 'Post cooperative channel close message to Telegram',
+    description: 'Post cooperative channel close message to RocketChat',
     expected: {
       text: [
         `🥀 Cooperatively closed 0\\.00000001 channel with alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,
@@ -117,7 +117,7 @@ const tests = [
   },
   {
     args: makeArgs({is_local_force_close: true}),
-    description: 'Post local force channel close message to Telegram',
+    description: 'Post local force channel close message to RocketChat',
     expected: {
       text: [
         `🥀 Force\\-closed 0\\.00000001 channel with alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,
@@ -127,7 +127,7 @@ const tests = [
   },
   {
     args: makeArgs({is_remote_force_close: true}),
-    description: 'Post remote force channel close message to Telegram',
+    description: 'Post remote force channel close message to RocketChat',
     expected: {
       text: [
         `🥀 0\\.00000001 channel was force closed by alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,

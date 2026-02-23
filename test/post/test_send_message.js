@@ -7,32 +7,32 @@ const tests = [
   {
     args: {},
     description: 'Send message requires a user id',
-    error: [400, 'ExpectedChatIdToSendMessageToTelegram'],
+    error: [400, 'ExpectedChatIdToSendMessageToRocketChat'],
   },
   {
     args: {id: 1},
     description: 'Send message requires an api key',
-    error: [400, 'ExpectedApiKeyToSendMessageToTelegram'],
+    error: [400, 'ExpectedApiKeyToSendMessageToRocketChat'],
   },
   {
     args: {id: 1, key: 'key'},
     description: 'Send message requires a request method',
-    error: [400, 'ExpectedRequestFunctionToSendMessageToTelegram'],
+    error: [400, 'ExpectedRequestFunctionToSendMessageToRocketChat'],
   },
   {
     args: {id: 1, key: 'key', request: () => {}},
     description: 'Send message requires text to send',
-    error: [400, 'ExpectedTextOfMessageToSendToTelegram'],
+    error: [400, 'ExpectedTextOfMessageToSendToRocketChat'],
   },
   {
     args: {id: 1, key: 'key', request: ({}, cbk) => cbk('err'), text: 'text'},
     description: 'Send message request errors are passed back',
-    error: [503, 'FailedToConnectToTelegramToSendMessage', {err: 'err'}],
+    error: [503, 'FailedToConnectToRocketChatToSendMessage', {err: 'err'}],
   },
   {
     args: {id: 1, key: 'key', request: ({}, cbk) => cbk(), text: 'text'},
     description: 'Send message empty response results in error',
-    error: [503, 'ExpectedResponseFromTelegramSendMessage'],
+    error: [503, 'ExpectedResponseFromRocketChatSendMessage'],
   },
   {
     args: {
@@ -47,7 +47,7 @@ const tests = [
       text: 'text',
     },
     description: 'Send message empty response results in error',
-    error: [503, 'FailedToConnectToTelegramApiToSend', {err: 'err'}],
+    error: [503, 'FailedToConnectToRocketChatApiToSend', {err: 'err'}],
   },
   {
     args: {
@@ -62,7 +62,7 @@ const tests = [
       text: 'text',
     },
     description: 'Send message empty response results in error',
-    error: [503, 'ExpectedResponseFromTelegramSend'],
+    error: [503, 'ExpectedResponseFromRocketChatSend'],
   },
   {
     args: {
@@ -72,7 +72,7 @@ const tests = [
       text: 'text',
     },
     description: 'Send message empty response results in error',
-    error: [503, 'UnexpectedStatusCodeFromTelegram'],
+    error: [503, 'UnexpectedStatusCodeFromRocketChat'],
   },
   {
     args: {

@@ -24,7 +24,7 @@ const tests = [
   {
     args: makeArgs({bot: undefined}),
     description: 'Posting nodes offline requires bot to post with',
-    error: [400, 'ExpectedTelegramBotToPostNodesOffline'],
+    error: [400, 'ExpectedRocketChatBotToPostNodesOffline'],
   },
   {
     args: makeArgs({offline: undefined}),

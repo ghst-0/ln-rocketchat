@@ -27,7 +27,7 @@ function postNodesOffline({ bot, connected, offline }, cbk) {
         // Check arguments
         validate: cbk => {
           if (!bot) {
-            return cbk([400, 'ExpectedTelegramBotToPostNodesOffline']);
+            return cbk([400, 'ExpectedRocketChatBotToPostNodesOffline']);
           }
 
           if (!isArray(offline)) {

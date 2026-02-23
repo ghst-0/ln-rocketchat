@@ -46,7 +46,7 @@ const tests = [
   {
     args: makeArgs({id: ''}),
     description: 'A connected user id is expected',
-    error: [400, 'ExpectedTelegramUserIdToPostChannelOpenMessage'],
+    error: [400, 'ExpectedRocketChatUserIdToPostChannelOpenMessage'],
   },
   {
     args: makeArgs({is_private: undefined}),
@@ -70,7 +70,7 @@ const tests = [
   },
   {
     args: makeArgs({}),
-    description: 'Post channel open message to Telegram',
+    description: 'Post channel open message to RocketChat',
     expected: {
       text: [
         `🌹 Accepted new 0\\.00000001 private channel from alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,
@@ -80,7 +80,7 @@ const tests = [
   },
   {
     args: makeArgs({is_partner_initiated: false, is_private: false}),
-    description: 'Post channel open message to Telegram for self-channel',
+    description: 'Post channel open message to RocketChat for self-channel',
     expected: {
       text: [
         `🌹 Opened new 0\\.00000001 channel to alias ${pubKey}\\. Inbound liquidity now: 0\\.00000001\\. Outbound liquidity now: 0\\.00000001\\.`,

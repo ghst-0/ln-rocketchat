@@ -20,19 +20,19 @@ function sendMessage({ id, key, request, text }, cbk) {
         // Check arguments
         validate: cbk => {
           if (!id) {
-            return cbk([400, 'ExpectedChatIdToSendMessageToTelegram']);
+            return cbk([400, 'ExpectedChatIdToSendMessageToRocketChat']);
           }
 
           if (!key) {
-            return cbk([400, 'ExpectedApiKeyToSendMessageToTelegram']);
+            return cbk([400, 'ExpectedApiKeyToSendMessageToRocketChat']);
           }
 
           if (!request) {
-            return cbk([400, 'ExpectedRequestFunctionToSendMessageToTelegram']);
+            return cbk([400, 'ExpectedRequestFunctionToSendMessageToRocketChat']);
           }
 
           if (!text) {
-            return cbk([400, 'ExpectedTextOfMessageToSendToTelegram']);
+            return cbk([400, 'ExpectedTextOfMessageToSendToRocketChat']);
           }
 
           return cbk();
@@ -51,11 +51,11 @@ function sendMessage({ id, key, request, text }, cbk) {
             },
             (err, r, body) => {
               if (err) {
-                return cbk([503, 'FailedToConnectToTelegramToSendMessage', { err }]);
+                return cbk([503, 'FailedToConnectToRocketChatToSendMessage', { err }]);
               }
 
               if (!r) {
-                return cbk([503, 'ExpectedResponseFromTelegramSendMessage']);
+                return cbk([503, 'ExpectedResponseFromRocketChatSendMessage']);
               }
 
               if (r.statusCode !== ok) {
@@ -79,15 +79,15 @@ function sendMessage({ id, key, request, text }, cbk) {
             },
             (err, r, body) => {
               if (err) {
-                return cbk([503, 'FailedToConnectToTelegramApiToSend', { err }]);
+                return cbk([503, 'FailedToConnectToRocketChatApiToSend', { err }]);
               }
 
               if (!r) {
-                return cbk([503, 'ExpectedResponseFromTelegramSend']);
+                return cbk([503, 'ExpectedResponseFromRocketChatSend']);
               }
 
               if (r.statusCode !== ok) {
-                return cbk([503, 'UnexpectedStatusCodeFromTelegram', { body }]);
+                return cbk([503, 'UnexpectedStatusCodeFromRocketChat', { body }]);
               }
 
               return cbk();

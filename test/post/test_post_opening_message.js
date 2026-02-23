@@ -61,7 +61,7 @@ const tests = [
   },
   {
     args: makeArgs({}),
-    description: 'Post channel accepting message to Telegram',
+    description: 'Post channel accepting message to RocketChat',
     expected: {
       text: [
         '⏳ Accepting new 0\\.00000001 channel from alias `000000000000000000000000000000000000000000000000000000000000000000`\\.',
@@ -78,7 +78,7 @@ const tests = [
         partner_public_key: pubKey,
       }],
     }),
-    description: 'Post private channel accepting message to Telegram',
+    description: 'Post private channel accepting message to RocketChat',
     expected: {
       text: [
         '⏳ Accepting new 0\\.00000001 🌚 private channel from alias `000000000000000000000000000000000000000000000000000000000000000000`\\.',
@@ -94,7 +94,7 @@ const tests = [
         partner_public_key: pubKey,
       }],
     }),
-    description: 'Post channel opening message to Telegram',
+    description: 'Post channel opening message to RocketChat',
     expected: {
       text: [
         '⏳ Opening new 0\\.00000001 channel to alias `000000000000000000000000000000000000000000000000000000000000000000`\\.',

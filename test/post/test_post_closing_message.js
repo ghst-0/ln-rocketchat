@@ -67,7 +67,7 @@ const tests = [
   },
   {
     args: makeArgs({}),
-    description: 'Post channel closing message to Telegram',
+    description: 'Post channel closing message to RocketChat',
     expected: {
       text: [
         '⏳ Closing 0\\.00000001 channel with alias 000000000000000000000000000000000000000000000000000000000000000000',
