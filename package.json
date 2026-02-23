@@ -8,18 +8,18 @@
   },
   "type": "module",
   "dependencies": {
-    "fiat": "workspace*",
+    "fiat": "workspace:fiat",
     "async": "3.2.6",
-    "asyncjs-util": "workspace*",
-    "bolt07": "workspace:*",
-    "ln-accounting": "workspace:*",
-    "ln-service": "workspace:*",
-    "ln-sync": "workspace:*",
+    "asyncjs-util": "workspace:asyncjs-util",
+    "bolt07": "workspace:bolt07",
+    "ln-accounting": "workspace:ln-accounting",
+    "ln-service": "workspace:ln-service",
+    "ln-sync": "workspace:ln-sync",
     "table": "6.9.0"
   },
   "description": "Lightning Network RocketChat bot commands",
   "devDependencies": {
-    "ln-docker-daemons": "workspace:*",
+    "ln-docker-daemons": "workspace:ln-docker-daemons",
     "oxlint": "^1.50.0"
   },
   "engines": {
