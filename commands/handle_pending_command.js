@@ -5,8 +5,8 @@ import { getNodeAlias } from 'ln-sync';
 import { returnResult } from 'asyncjs-util';
 
 import { checkAccess } from '../authentication/check_access.js';
-import pendingPayments from './pending_payments.js';
-import pendingSummary from './pending_summary.js';
+import { pendingPayments } from './pending_payments.js';
+import { pendingSummary } from './pending_summary.js';
 
 const {isArray} = Array;
 const join = lines => lines.join('\n').trim();

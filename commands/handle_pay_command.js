@@ -4,7 +4,7 @@ import { getNode, getPayment, parsePaymentRequest, payViaRoutes, subscribeToProb
 
 import { checkAccess } from '../authentication/check_access.js';
 import { decodeCommand } from './decode_command.js';
-import { icons } from '../interface/icons.json' with { type: 'json' };
+import icons from '../interface/icons.json' with { type: 'json' };
 import interaction from '../interaction.json' with { type: 'json' };
 
 const {ceil} = Math;
