@@ -12,7 +12,6 @@ const pubKey = '0000000000000000000000000000000000000000000000000000000000000000
 const makeArgs = (overrides => {
   const args = {
     from: 'node1',
-    id: 1,
     lnd: {
       default: {
         getChanInfo: ({}, cbk) => cbk(null, chanInfoResponse),
@@ -41,11 +40,6 @@ const tests = [
     args: makeArgs({from: ''}),
     description: 'A from node name is expected',
     error: [400, 'ExpectedFromNameToPostChannelOpeningMessage'],
-  },
-  {
-    args: makeArgs({id: ''}),
-    description: 'A connected user id is expected',
-    error: [400, 'ExpectedUserIdToPostChannelOpeningMessage'],
   },
   {
     args: makeArgs({lnd: undefined}),

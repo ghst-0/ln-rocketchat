@@ -10,7 +10,6 @@ const channelPoint = n => `${n.transaction_id}:${n.transaction_vout}`;
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const {isArray} = Array;
 const joinLines = lines => lines.filter(n => !!n).join('\n');
-const markup = {parse_mode: 'MarkdownV2'};
 const uniq = arr => Array.from(new Set(arr));
 
 /**
@@ -21,7 +20,6 @@ const uniq = arr => Array.from(new Set(arr));
  * @param {string} closing.transaction_id Channel Transaction Id Hex
  * @param {number} closing.transaction_vout Channel Transaction Output Index
  * @param {string} from Node From Name
- * @param {string} id Connected Telegram User Id
  * @param {{}} lnd Authenticated LND API Object
  * @param {{}} nodes List of nodes
  * @param {{public_key: string}[]} nodes List of nodes {
@@ -31,7 +29,7 @@ const uniq = arr => Array.from(new Set(arr));
  * @param {function} cbk Callback function
  * @returns {Promise<string>} via cbk or Promise<string> Posted Channel Closing Message String
  */
-const postClosingMessage = ({ closing, from, id, lnd, nodes, send }, cbk) => {
+const postClosingMessage = ({ closing, from, lnd, nodes, send }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -42,10 +40,6 @@ const postClosingMessage = ({ closing, from, id, lnd, nodes, send }, cbk) => {
 
           if (!from) {
             return cbk([400, 'ExpectedFromNameToPostChannelClosingMessage']);
-          }
-
-          if (!id) {
-            return cbk([400, 'ExpectedUserIdToPostChannelClosingMessage']);
           }
 
           if (!lnd) {
@@ -97,7 +91,7 @@ const postClosingMessage = ({ closing, from, id, lnd, nodes, send }, cbk) => {
         }],
 
         // Send the channel closing message
-        send: ['message', async ({ message }) => await send(id, message, markup)]
+        send: ['message', async ({ message }) => await send(message)]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));
   });

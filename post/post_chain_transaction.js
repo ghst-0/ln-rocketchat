@@ -8,13 +8,11 @@ const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const formatAmount = tokens => formatTokens({tokens}).display;
 const {isArray} = Array;
 const joinElements = arr => arr.join(' ');
-const markup = {parse_mode: 'MarkdownV2'};
 
 /**
  * Post chain transaction
  * @param {boolean} confirmed Transaction is Confirmed
  * @param {string} from From Node
- * @param {number} id Connected User Id
  * @param {{public_key: string}[]} nodes List of nodes {
  *   public_key: Public Key Hex
  * }
@@ -45,17 +43,13 @@ const markup = {parse_mode: 'MarkdownV2'};
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const postChainTransaction = ({ confirmed, from, id, nodes, send, transaction }, cbk) => {
+const postChainTransaction = ({ confirmed, from, nodes, send, transaction }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
         validate: cbk => {
           if (!from) {
             return cbk([400, 'ExpectedFromNodeFromToPostChainTransaction']);
-          }
-
-          if (!id) {
-            return cbk([400, 'ExpectedConnectedUserIdToPostChainTransaction']);
           }
 
           if (!isArray(nodes)) {
@@ -174,7 +168,7 @@ const postChainTransaction = ({ confirmed, from, id, nodes, send, transaction },
             return;
           }
 
-          return await send(id, message, markup);
+          return await send(message);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

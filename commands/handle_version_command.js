@@ -13,7 +13,6 @@ const url = n => `https://registry.npmjs.org/${n}/latest`;
 /**
  * Handle the mempool command
  * @param {number} from Command From User Id
- * @param {number} id Connected User Id
  * @param {string} named Name To Look Up
  * @param {function} reply Reply to Telegram Context Function
  * @param {function} request Request Function
@@ -21,7 +20,7 @@ const url = n => `https://registry.npmjs.org/${n}/latest`;
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const handleVersionCommand = ({ from, id, named, reply, request, version }, cbk) => {
+const handleVersionCommand = ({ from, named, reply, request, version }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -50,7 +49,7 @@ const handleVersionCommand = ({ from, id, named, reply, request, version }, cbk)
         },
 
         // Authenticate the command caller is authorized to this command
-        checkAccess: ['validate', ({}, cbk) => checkAccess({ from, id }, cbk)],
+        checkAccess: ['validate', ({}, cbk) => checkAccess({ from }, cbk)],
 
         // Get version from NPM
         getVersion: ['checkAccess', ({}, cbk) => {

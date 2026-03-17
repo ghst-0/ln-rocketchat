@@ -4,11 +4,10 @@ import { returnResult } from 'asyncjs-util';
 /**
  * Check access to private commands
  * @param {number} from Source User Id
- * @param {number} id Connected User Id
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const checkAccess = ({ from, id }, cbk) => {
+const checkAccess = ({ from }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -22,10 +21,6 @@ const checkAccess = ({ from, id }, cbk) => {
 
         // Check access
         checkAccess: ['validate', ({}, cbk) => {
-          if (!id || from !== id) {
-            return cbk([401, 'CommandRequiresConnectCode']);
-          }
-
           return cbk();
         }]
       },

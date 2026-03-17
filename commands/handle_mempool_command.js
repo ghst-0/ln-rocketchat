@@ -20,13 +20,12 @@ const waitTimeForBlock = n => `${n * 10} min`;
 /**
  * Handle the mempool command
  * @param {number} from Command From User Id
- * @param {number} id Connected User Id
  * @param {function} reply Reply to Telegram Context Function
  * @param {function} request Request Function
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const handleMempoolCommand = ({ from, id, reply, request }, cbk) => {
+const handleMempoolCommand = ({ from, reply, request }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -47,7 +46,7 @@ const handleMempoolCommand = ({ from, id, reply, request }, cbk) => {
         },
 
         // Authenticate the command caller is authorized to this command
-        checkAccess: ['validate', ({}, cbk) => checkAccess({ from, id }, cbk)],
+        checkAccess: ['validate', ({}, cbk) => checkAccess({ from }, cbk)],
 
         // Get block data from mempool.space
         getMempool: ['checkAccess', ({}, cbk) => {

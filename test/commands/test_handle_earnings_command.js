@@ -12,7 +12,6 @@ const tests = [
   {
     args: {
       from: 1,
-      id: 1,
       nodes: [{
         from: 'node',
         lnd: {

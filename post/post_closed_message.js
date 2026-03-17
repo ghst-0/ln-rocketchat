@@ -7,7 +7,6 @@ import { formatTokens } from '../interface/format_tokens.js';
 const detailsJoiner = ' ';
 const displayTokens = tokens => formatTokens({tokens}).display;
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
-const markup = {parse_mode: 'MarkdownV2'};
 const textJoiner = '\n';
 
 /**
@@ -15,7 +14,6 @@ const textJoiner = '\n';
  * @param {{}} args
  * @param {number} args.capacity Closed Channel Capacity Tokens
  * @param {string} args.from Node From
- * @param {string} args.id Connected Telegram User Id
  * @param {boolean} args.is_breach_close Is Breach Close
  * @param {boolean} args.is_cooperative_close Is Cooperative Close
  * @param {boolean} args.is_local_force_close Is Local Force Close
@@ -37,10 +35,6 @@ const postClosedMessage = (args, cbk) => {
 
           if (!args.from) {
             return cbk([400, 'ExpectedFromNodeToPostClosedMessage']);
-          }
-
-          if (!args.id) {
-            return cbk([400, 'ExpectedConnectedUserIdToPostClosedMessage'])
           }
 
           if (args.is_breach_close === undefined) {
@@ -114,7 +108,7 @@ const postClosedMessage = (args, cbk) => {
 
         // Send channel open message
         send: ['message', async ({ message }) => {
-          return await args.send(args.id, message.text, markup);
+          return await args.send(message.text);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

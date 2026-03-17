@@ -11,7 +11,6 @@ const makeArgs = overrides => {
   const args = {
     forwards: [],
     from: 'from',
-    id: 1,
     lnd: {},
     node: Buffer.alloc(33).toString('hex'),
     nodes: [
@@ -40,11 +39,6 @@ const tests = [
     args: makeArgs({from: undefined}),
     description: 'A from name is required to notify of forwards',
     error: [400, 'ExpectedFromNodeNameToNotifyOfForwards'],
-  },
-  {
-    args: makeArgs({id: undefined}),
-    description: 'A user id is required to notify of forwards',
-    error: [400, 'ExpectedConnectedUserIdToNotifyOfForwards'],
   },
   {
     args: makeArgs({lnd: undefined}),

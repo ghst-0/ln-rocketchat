@@ -5,13 +5,11 @@ import icons from '../interface/icons.json' with { type: 'json' };
 
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const {isArray} = Array;
-const markup = {parse_mode: 'MarkdownV2'};
 const shortId = id => id.slice(0, 8);
 
 /**
  * Post that nodes have gone offline
  * @param {{}} bot Telegram Bot Object
- * @param {number} [connected] Connected User Id
  * @param {{
  *  alias: string,
  *  id: string
@@ -21,7 +19,7 @@ const shortId = id => id.slice(0, 8);
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const postNodesOffline = ({ bot, connected, offline }, cbk) => {
+const postNodesOffline = ({ bot, offline }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -39,10 +37,6 @@ const postNodesOffline = ({ bot, connected, offline }, cbk) => {
 
         // Setup the message to send notifying that nodes are offline
         message: ['validate', ({}, cbk) => {
-          // Exit early when there is no connected user to message
-          if (!connected) {
-            return cbk();
-          }
 
           // Exit early when no nodes went offline
           if (offline.length === 0) {
@@ -63,7 +57,7 @@ const postNodesOffline = ({ bot, connected, offline }, cbk) => {
             return;
           }
 
-          return await bot.api.sendMessage(connected, message, markup);
+          return await bot.sendMessage(message);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

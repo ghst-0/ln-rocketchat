@@ -9,31 +9,25 @@ import icons from '../interface/icons.json' with { type: 'json' };
 const elementJoiner = ' ';
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const {isArray} = Array;
-const markup = {parse_mode: 'MarkdownV2'};
 const textJoiner = '\n';
 const {unannounced} = icons;
 
 /**
  * Send channel opening message to telegram
  * @param {string} from Node From Name
- * @param {string} id Connected Telegram User Id
  * @param {{}} lnd Authenticated LND API Object
  * @param opening
  * @param {function} send Send Message to Telegram User Id Function
  * @param {function} cbk Callback function
  * @returns {Promise<{text:string}>} via cbk or Promise<text:string> text: Posted Channel Open Message
  */
-const postOpeningMessage = ({ from, id, lnd, opening, send }, cbk) => {
+const postOpeningMessage = ({ from, lnd, opening, send }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
         validate: cbk => {
           if (!from) {
             return cbk([400, 'ExpectedFromNameToPostChannelOpeningMessage']);
-          }
-
-          if (!id) {
-            return cbk([400, 'ExpectedUserIdToPostChannelOpeningMessage']);
           }
 
           if (!lnd) {
@@ -85,7 +79,7 @@ const postOpeningMessage = ({ from, id, lnd, opening, send }, cbk) => {
 
         // Send channel open message
         send: ['message', async ({ message }) => {
-          return await send(id, message.text, markup);
+          return await send(message.text);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

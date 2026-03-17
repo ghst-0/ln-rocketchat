@@ -16,7 +16,6 @@ const formatValue = tokens => formatTokens({tokens}).display;
 const {isArray} = Array;
 const join = n => n.filter(n => !!n).join(' ');
 const joinAsLines = n => n.join('\n');
-const markup = {parse_mode: 'MarkdownV2'};
 const uniq = arr => Array.from(new Set(arr));
 
 /**
@@ -32,19 +31,18 @@ const uniq = arr => Array.from(new Set(arr));
  *   outgoing_channel: Standard Format Outgoing Channel Id,
  *   tokens: Forwarded Tokens
  * @param {string} from Node From Name
- * @param {number} id Connected User Id
  * @param {{}} lnd Authenticated LND API Object
  * @param {string} node From Node Public Key Hex
  * @param {{public_key: string}[]} nodes List of nodes {
  *   public_key: Public Key Hex
  * }
- * @param {string} send From Node Public Key Hex
+ * @param {function} send From Node Public Key Hex
  * @param {function} cbk Callback function
  * @returns {Promise<{text: string}>} via cbk or Promise<{
  *   text: Forward Notify Message Text
  * }>
  */
-const notifyOfForwards = ({ forwards, from, id, lnd, node, nodes, send }, cbk) => {
+const notifyOfForwards = ({ forwards, from, lnd, node, nodes, send }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -55,10 +53,6 @@ const notifyOfForwards = ({ forwards, from, id, lnd, node, nodes, send }, cbk) =
 
           if (!from) {
             return cbk([400, 'ExpectedFromNodeNameToNotifyOfForwards']);
-          }
-
-          if (!id) {
-            return cbk([400, 'ExpectedConnectedUserIdToNotifyOfForwards']);
           }
 
           if (!lnd) {
@@ -172,7 +166,7 @@ const notifyOfForwards = ({ forwards, from, id, lnd, node, nodes, send }, cbk) =
             return;
           }
 
-          return await send(id, message, markup);
+          return await send(message);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

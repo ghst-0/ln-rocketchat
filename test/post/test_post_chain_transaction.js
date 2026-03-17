@@ -48,7 +48,6 @@ const makeTransaction = overrides => {
 const makeArgs = overrides => {
   const args = {
     from: 'from',
-    id: 1,
     nodes: [{}],
     send: ({}) => new Promise(resolve => resolve()),
     transaction: makeTransaction({}),
@@ -66,11 +65,6 @@ const tests = [
     args: makeArgs({from: undefined}),
     description: 'A from node string is expected',
     error: [400, 'ExpectedFromNodeFromToPostChainTransaction'],
-  },
-  {
-    args: makeArgs({id: undefined}),
-    description: 'An id is expected',
-    error: [400, 'ExpectedConnectedUserIdToPostChainTransaction'],
   },
   {
     args: makeArgs({nodes: undefined}),

@@ -10,7 +10,6 @@ import interaction from '../interaction.json' with { type: 'json' };
 
 const defaultAlias = '';
 const {isArray} = Array;
-const markup = {parse_mode: 'MarkdownV2'};
 const {max} = Math;
 const uniq = arr => Array.from(new Set(arr));
 
@@ -42,10 +41,6 @@ const handleLiquidityCommand = (args, cbk) => {
             return cbk([400, 'ExpectedFromUserIdNumberForLiquidityCommand']);
           }
 
-          if (!args.id) {
-            return cbk([400, 'ExpectedConnectedIdNumberForLiquidityCommand']);
-          }
-
           if (!isArray(args.nodes)) {
             return cbk([400, 'ExpectedNodesForLiquidityCommand']);
           }
@@ -67,7 +62,7 @@ const handleLiquidityCommand = (args, cbk) => {
 
         // Authenticate the command caller is authorized to this command
         checkAccess: ['validate', ({}, cbk) => {
-          return checkAccess({ from: args.from, id: args.id }, cbk);
+          return checkAccess({ from: args.from }, cbk);
         }],
 
         // Derive the query if present
@@ -258,7 +253,7 @@ const handleLiquidityCommand = (args, cbk) => {
               peer: withPeer
             });
 
-            return await args.reply(message, markup);
+            return await args.reply(message);
           }]
       },
       returnResult({ reject, resolve }, cbk));

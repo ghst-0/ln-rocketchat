@@ -5,7 +5,6 @@ import { postNodesOnline } from '../../post/post_nodes_online.js';
 
 const makeArgs = overrides => {
   const args = {
-    id: 1,
     nodes: [{
       alias: 'alias-alias',
       id: Buffer.alloc(33).toString('hex'),
@@ -21,11 +20,6 @@ const makeArgs = overrides => {
 };
 
 const tests = [
-  {
-    args: makeArgs({id: undefined}),
-    description: 'Posting nodes online requires an id to send to',
-    error: [400, 'ExpectedConnectedUserIdToPostOnlineNotification'],
-  },
   {
     args: makeArgs({nodes: undefined}),
     description: 'Posting nodes online requires nodes',

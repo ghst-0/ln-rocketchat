@@ -29,7 +29,6 @@ test(`Handle liquidity command`, async () => {
 
     await handleLiquidityCommand({
       from: 1,
-      id: 1,
       nodes: [{lnd, from: 'from', public_key: id}],
       reply: (message) => replies.push(message.split('\n')),
       text: `/liquidity ${target.id}`,

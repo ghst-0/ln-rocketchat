@@ -17,7 +17,6 @@ const makeArgs = (overrides => {
       transaction_vout: 0,
     }],
     from: 'node1',
-    id: 1,
     lnd: {
       default: {
         getChanInfo: ({}, cbk) => cbk(null, chanInfoResponse),
@@ -45,11 +44,6 @@ const tests = [
     args: makeArgs({from: ''}),
     description: 'A from node name is expected',
     error: [400, 'ExpectedFromNameToPostChannelClosingMessage'],
-  },
-  {
-    args: makeArgs({id: ''}),
-    description: 'A connected user id is expected',
-    error: [400, 'ExpectedUserIdToPostChannelClosingMessage'],
   },
   {
     args: makeArgs({lnd: undefined}),

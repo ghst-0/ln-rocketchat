@@ -7,7 +7,6 @@ import { postSettledPayment } from '../../post/post_settled_payment.js';
 const makeArgs = overrides => {
   const args = {
     from: 'from',
-    id: 1,
     lnd: {default: {getNodeInfo: ({}, cbk) => cbk(null, nodeInfoResult)}},
     nodes: [Buffer.alloc(33, 2).toString('hex')],
     payment: {
@@ -32,11 +31,6 @@ const tests = [
     args: makeArgs({from: undefined}),
     description: 'A from name is required to notify of payment',
     error: [400, 'ExpectedPaymentFromNameStringToPostPayment'],
-  },
-  {
-    args: makeArgs({id: undefined}),
-    description: 'A user id is required to notify of payment',
-    error: [400, 'ExpectedUserIdToPostSettledPayment'],
   },
   {
     args: makeArgs({lnd: undefined}),

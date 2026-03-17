@@ -10,13 +10,11 @@ import { pendingSummary } from './pending_summary.js';
 
 const {isArray} = Array;
 const join = lines => lines.join('\n').trim();
-const markup = {parse_mode: 'MarkdownV2'};
 const uniq = arr => Array.from(new Set(arr));
 
 /**
  * Handle pending command
  * @param {number} from Command From User Id
- * @param {number} id Connected User Id
  * @param {{from: string, lnd: {}, public_key: string}[]} nodes List of nodes {
  *   from: Saved Node Name,
  *   lnd: Authenticated LND API Object,
@@ -27,7 +25,7 @@ const uniq = arr => Array.from(new Set(arr));
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const handlePendingCommand = ({ from, id, nodes, reply, working }, cbk) => {
+const handlePendingCommand = ({ from, nodes, reply, working }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -52,7 +50,7 @@ const handlePendingCommand = ({ from, id, nodes, reply, working }, cbk) => {
         },
 
         // Authenticate the command caller is authorized to this command
-        checkAccess: ['validate', ({}, cbk) => checkAccess({ from, id }, cbk)],
+        checkAccess: ['validate', ({}, cbk) => checkAccess({ from }, cbk)],
 
         // Get HTLCs in channels
         getHtlcs: ['checkAccess', ({}, cbk) => {
@@ -155,7 +153,7 @@ const handlePendingCommand = ({ from, id, nodes, reply, working }, cbk) => {
             pending: getPending
           });
 
-          return await reply(join(summary), markup);
+          return await reply(join(summary));
         }]
       },
       returnResult({ reject, resolve }, cbk));

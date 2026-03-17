@@ -13,7 +13,6 @@ const makeArgs = (overrides => {
   const args = {
     capacity: 1,
     from: 'node1',
-    id: 1,
     is_breach_close: false,
     is_cooperative_close: false,
     is_local_force_close: false,
@@ -47,11 +46,6 @@ const tests = [
     args: makeArgs({from: ''}),
     description: 'From node name is required',
     error: [400, 'ExpectedFromNodeToPostClosedMessage'],
-  },
-  {
-    args: makeArgs({id: ''}),
-    description: 'Connected user id is required',
-    error: [400, 'ExpectedConnectedUserIdToPostClosedMessage'],
   },
   {
     args: makeArgs({is_breach_close: undefined}),

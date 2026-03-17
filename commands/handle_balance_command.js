@@ -7,7 +7,6 @@ import { checkAccess } from '../authentication/check_access.js';
 import { fundsSummary } from '../messages/funds_summary.js';
 
 const {isArray} = Array;
-const markup = {parse_mode: 'MarkdownV2'};
 
 /**
  * See the balance of funds
@@ -18,7 +17,6 @@ const markup = {parse_mode: 'MarkdownV2'};
  *
  *   {
  *     from: <Command From User Id Number>
- *     id: <Connected User Id Number>
  *     nodes: [{
  *       from: <From Name String>
  *       lnd: <Authenticated LND API Object>
@@ -51,10 +49,6 @@ const handleBalanceCommand = (args, cbk) => {
             return cbk([400, 'ExpectedFromUserIdNumberForBalanceCommand']);
           }
 
-          if (!args.id) {
-            return cbk([400, 'ExpectedConnectedIdNumberForBalanceCommand']);
-          }
-
           if (!isArray(args.nodes)) {
             return cbk([400, 'ExpectedListOfConnectedNodesForBalanceCommand']);
           }
@@ -72,7 +66,7 @@ const handleBalanceCommand = (args, cbk) => {
 
         // Authenticate the command caller is authorized to this command
         checkAccess: ['validate', ({}, cbk) => {
-          return checkAccess({ from: args.from, id: args.id }, cbk);
+          return checkAccess({ from: args.from }, cbk);
         }],
 
         // Notify of record lookup time
@@ -99,7 +93,7 @@ const handleBalanceCommand = (args, cbk) => {
             nodes: args.nodes
           });
 
-          return await args.reply(message, markup);
+          return await args.reply(message);
         }]
       },
       returnResult({ reject, resolve }, cbk));

@@ -7,7 +7,6 @@ import { formatTokens } from '../interface/format_tokens.js';
 const detailsJoiner = ' ';
 const displayAmount = tokens => formatTokens({tokens}).display;
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
-const markup = {parse_mode: 'MarkdownV2'};
 const textJoiner = '\n';
 
 /**
@@ -35,10 +34,6 @@ const postOpenMessage = (args, cbk) => {
 
           if (!args.from) {
             return cbk([400, 'ExpectedFromNameToPostChannelOpenMessage']);
-          }
-
-          if (!args.id) {
-            return cbk([400, 'ExpectedRocketChatUserIdToPostChannelOpenMessage']);
           }
 
           if (args.is_private === undefined) {
@@ -92,7 +87,7 @@ const postOpenMessage = (args, cbk) => {
 
         // Send channel open message
         send: ['message', async ({ message }) => {
-          return await args.send(args.id, message.text, markup);
+          return await args.send(message.text);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

@@ -10,13 +10,11 @@ const display = tokens => formatTokens({tokens}).display;
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const {isArray} = Array;
 const join = arr => arr.join(', ');
-const markup = {parse_mode: 'MarkdownV2'};
 const niceName = node => node.alias || node.id.slice(0, 8);
 
 /**
  * Post settled payment
  * @param {string} from Payment From Node
- * @param {number} id Connected User Id
  * @param {{}} lnd Authenticated LND API Object
  * @param {string[]} nodes List of nodes [Node Id Public Key Hex]
  * @param {function} send Send Message to Telegram User Function
@@ -30,17 +28,13 @@ const niceName = node => node.alias || node.id.slice(0, 8);
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise<text>: Settled Payment Message Text
  */
-const postSettledPayment = ({ from, id, lnd, nodes, payment, send }, cbk) => {
+const postSettledPayment = ({ from, lnd, nodes, payment, send }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
         validate: cbk => {
           if (!from) {
             return cbk([400, 'ExpectedPaymentFromNameStringToPostPayment']);
-          }
-
-          if (!id) {
-            return cbk([400, 'ExpectedUserIdToPostSettledPayment']);
           }
 
           if (!lnd) {
@@ -99,7 +93,7 @@ const postSettledPayment = ({ from, id, lnd, nodes, payment, send }, cbk) => {
 
         // Post message summarizing the payment
         post: ['message', async ({ message }) => {
-          return await send(id, message, markup);
+          return await send(message);
         }]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));

@@ -6,11 +6,9 @@ import icons from '../interface/icons.json' with { type: 'json' };
 const commaJoin = arr => arr.join(', ');
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const {isArray} = Array;
-const markup = {parse_mode: 'MarkdownV2'};
 
 /**
  * Post that nodes are now online
- * @param {number} id Connected User Id
  * @param {{alias: {}, public_key: string}[]} nodes List of nodes {
  *   alias: Node Alias,
  *   public_key: Public Key Hex
@@ -19,15 +17,11 @@ const markup = {parse_mode: 'MarkdownV2'};
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>} via cbk or Promise
  */
-const postNodesOnline = ({ id, nodes, send }, cbk)  => {
+const postNodesOnline = ({ nodes, send }, cbk)  => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
         validate: cbk => {
-          if (!id) {
-            return cbk([400, 'ExpectedConnectedUserIdToPostOnlineNotification']);
-          }
-
           if (!isArray(nodes)) {
             return cbk([400, 'ExpectedNodesToPostOnlineNotification']);
           }
@@ -49,7 +43,7 @@ const postNodesOnline = ({ id, nodes, send }, cbk)  => {
         }],
 
         // Send the connected message
-        send: ['message', async ({ message }) => await send(id, message, markup)]
+        send: ['message', async ({ message }) => await send(message)]
       },
       returnResult({ reject, resolve, of: 'message' }, cbk));
   });

@@ -18,7 +18,6 @@ test(`Handle balance command`, async () => {
 
     await handleBalanceCommand({
       from: 1,
-      id: 1,
       nodes: [
         {lnd, from: 'control', public_key: id},
         {from: 'target', lnd: target.lnd, public_key: target.id},

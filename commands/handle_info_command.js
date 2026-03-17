@@ -9,12 +9,10 @@ import icons from '../interface/icons.json' with { type: 'json' };
 const escape = text => text.replaceAll(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\\$&');
 const {isArray} = Array;
 const join = arr => arr.join('\n');
-const markup = {parse_mode: 'MarkdownV2'};
 
 /**
  * Get node info
  * @param {number} from Command From User Id
- * @param {number} id Connected User Id
  * @param {{from: string, lnd: {}, public_key: string}[]} nodes List of nodes {
  *   from: Saved Node Name,
  *   lnd: Authenticated LND API Object,
@@ -25,7 +23,7 @@ const markup = {parse_mode: 'MarkdownV2'};
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>}
  */
-const handleInfoCommand = ({ from, id, nodes, remove, reply }, cbk) => {
+const handleInfoCommand = ({ from, nodes, remove, reply }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -50,7 +48,7 @@ const handleInfoCommand = ({ from, id, nodes, remove, reply }, cbk) => {
         },
 
         // Authenticate the command caller is authorized to this command
-        checkAccess: ['validate', ({}, cbk) => checkAccess({ from, id }, cbk)],
+        checkAccess: ['validate', ({}, cbk) => checkAccess({ from }, cbk)],
 
         // Remove the invocation command
         remove: ['validate', async ({}) => await remove()],
@@ -86,7 +84,7 @@ const handleInfoCommand = ({ from, id, nodes, remove, reply }, cbk) => {
 
         // Send response to telegram
         reply: ['summary', async ({ summary }) => {
-          return await reply(summary, markup);
+          return await reply(summary);
         }]
       },
       returnResult({ reject, resolve }, cbk));

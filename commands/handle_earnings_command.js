@@ -30,7 +30,6 @@ const weekMs = 1000 * 60 * 60 * 24 * 7;
 /**
  * Check node earnings
  * @param {number} from Command From User Id
- * @param {number} id Connected User Id
  * @param {{from: string, lnd: {}, public_key: string}[]} nodes List of nodes {
  *   from: Saved Node Name,
  *   lnd: Authenticated LND API Object,
@@ -41,7 +40,7 @@ const weekMs = 1000 * 60 * 60 * 24 * 7;
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>}
  */
-const handleEarningsCommand = ({ from, id, nodes, reply, working }, cbk) => {
+const handleEarningsCommand = ({ from, nodes, reply, working }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -62,7 +61,7 @@ const handleEarningsCommand = ({ from, id, nodes, reply, working }, cbk) => {
         },
 
         // Authenticate the command caller is authorized to this command
-        checkAccess: ['validate', ({}, cbk) => checkAccess({ from, id }, cbk)],
+        checkAccess: ['validate', ({}, cbk) => checkAccess({ from }, cbk)],
 
         // Get invoices
         getInvoices: ['checkAccess', ({}, cbk) => {

@@ -13,7 +13,6 @@ const makeArgs = (overrides => {
   const args = {
     capacity: 1,
     from: 'node1',
-    id: 1,
     is_partner_initiated: true,
     is_private: true,
     lnd: {
@@ -45,11 +44,6 @@ const tests = [
     args: makeArgs({from: ''}),
     description: 'A from node name is expected',
     error: [400, 'ExpectedFromNameToPostChannelOpenMessage'],
-  },
-  {
-    args: makeArgs({id: ''}),
-    description: 'A connected user id is expected',
-    error: [400, 'ExpectedRocketChatUserIdToPostChannelOpenMessage'],
   },
   {
     args: makeArgs({is_private: undefined}),

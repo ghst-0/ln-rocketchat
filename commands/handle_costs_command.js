@@ -22,7 +22,6 @@ const weekMs = 1000 * 60 * 60 * 24 * 7;
 /**
  * Check node costs
  * @param {number} from Command From User Id
- * @param {number} id Connected User Id
  * @param {{from: string, lnd: {}, public_key: string}[]} nodes List of nodes {
  *   from: Saved Node Name,
  *   lnd: Authenticated LND API Object,
@@ -34,7 +33,7 @@ const weekMs = 1000 * 60 * 60 * 24 * 7;
  * @param {function} cbk Callback function
  * @returns {Promise<unknown>}
  */
-const handleCostsCommand = ({ from, id, nodes, reply, request, working }, cbk) => {
+const handleCostsCommand = ({ from, nodes, reply, request, working }, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
         // Check arguments
@@ -59,7 +58,7 @@ const handleCostsCommand = ({ from, id, nodes, reply, request, working }, cbk) =
         },
 
         // Authenticate the command caller is authorized to this command
-        checkAccess: ['validate', ({}, cbk) => checkAccess({ from, id }, cbk)],
+        checkAccess: ['validate', ({}, cbk) => checkAccess({ from }, cbk)],
 
         // Get rebalance payments
         getRebalances: ['checkAccess', ({}, cbk) => {
